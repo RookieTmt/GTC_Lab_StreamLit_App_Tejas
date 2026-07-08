@@ -513,18 +513,20 @@ if len(exp_files) > 1:
 
 # ----------------- SECTION 1: EXPERIMENT DETAILS -----------------
 st.markdown("### 📋 Experiment Details")
+if selected_exp_num is not None and selected_exp_num in EXPERIMENTS:
+    exp_aim = EXPERIMENTS[selected_exp_num].get('aim', 'Aim not provided.')
+else:
+    exp_aim = "Waiting for selection..."
 
-# Display Aim card
 st.markdown(
     f"""
     <div style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(59, 130, 246, 0.2); border-left: 5px solid #3B82F6; border-radius: 8px; padding: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
         <span style="font-weight: 700; color: #3B82F6; font-size: 1.1rem; display: block; margin-bottom: 5px;">🎯 Aim</span>
-        <span style="color: #E2E8F0; font-size: 1.05rem; line-height: 1.5;">{EXPERIMENTS[selected_exp_num]['aim']}</span>
+        <span style="color: #E2E8F0; font-size: 1.05rem; line-height: 1.5;">{exp_aim}</span>
     </div>
     """,
     unsafe_allow_html=True
 )
-
 # Display Theory Card header
 st.markdown(
     f"""

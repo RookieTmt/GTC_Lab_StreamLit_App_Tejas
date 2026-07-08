@@ -425,9 +425,12 @@ selected_option = st.sidebar.radio(
     format_func=lambda opt: opt["label"]
 )
 
-# Update state index
-current_index = sidebar_options.index(selected_option)
-st.session_state.selected_file_index = current_index
+# Debugging the mismatch
+if selected_option not in sidebar_options:
+    st.error(f"DEBUG: '{selected_option}' not found in {sidebar_options}")
+    st.stop()
+
+st.session_state.selected_file_index = sidebar_options.index(selected_option)
 
 # Extract details for selected option
 selected_exp_num = selected_option["exp_num"]

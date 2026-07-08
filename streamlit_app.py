@@ -515,8 +515,10 @@ if len(exp_files) > 1:
 st.markdown("### 📋 Experiment Details")
 if selected_exp_num is not None and selected_exp_num in EXPERIMENTS:
     exp_aim = EXPERIMENTS[selected_exp_num].get('aim', 'Aim not provided.')
+    exp_theory = EXPERIMENTS[selected_exp_num].get('theory', 'Theory not provided.')
 else:
     exp_aim = "Waiting for selection..."
+    exp_theory = "Waiting for selection..."
 
 st.markdown(
     f"""
@@ -537,7 +539,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 # Render Markdown Theory content
-st.markdown(EXPERIMENTS[selected_exp_num]['theory'])
+st.markdown(exp_theory)
 
 # Display Conclusion Card header
 st.markdown(

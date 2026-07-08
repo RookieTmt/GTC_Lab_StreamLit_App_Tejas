@@ -192,8 +192,10 @@ Greedy coloring is efficient ($O(V + E)$) but doesn't guarantee the minimal chro
 }
 
 def get_experiment_files(exp_num: int):
-    """Get all Python files for a given experiment number."""
     files = []
+    
+    if exp_num is None or not isinstance(exp_num, (int, float)):
+        return []
     
     if exp_num == 1:
         names = ["gt1.py"]
@@ -204,14 +206,11 @@ def get_experiment_files(exp_num: int):
     elif exp_num == 4:
         names = ["gt4.py", "gt4_without_using.py"]
     else:
-        # Experiments 5 to 11
-        # Search dynamically on disk for exp{exp_num:02d} or expt{exp_num:02d}
-        pattern1 = f"expt{exp_num:02d}*.py"
-        pattern2 = f"exp{exp_num:02d}*.py"
+        pattern1 = f"expt{int(exp_num):02d}*.py"
+        pattern2 = f"exp{int(exp_num):02d}*.py"
         
         found = list(BASE_DIR.glob(pattern1)) + list(BASE_DIR.glob(pattern2))
         
-        # Remove duplicates and self
         unique_found = []
         seen = set()
         for p in found:
@@ -219,7 +218,6 @@ def get_experiment_files(exp_num: int):
                 seen.add(p.name)
                 unique_found.append(p)
                 
-        # Sort key to ensure 'using' comes before 'without_using' and 'sudoku' behaves correctly
         def sort_key(p):
             n = p.name.lower()
             if "sudoku" in n:
@@ -239,7 +237,6 @@ def get_experiment_files(exp_num: int):
             files.append((name, str(path)))
             
     return files
-
 def execute_code(code_text: str, file_path: str, output_container):
     """Execute code and capture output."""
     stdout_buffer = io.StringIO()

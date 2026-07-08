@@ -426,11 +426,13 @@ selected_option = st.sidebar.radio(
 )
 
 # Debugging the mismatch
-if selected_option not in sidebar_options:
-    st.error(f"DEBUG: '{selected_option}' not found in {sidebar_options}")
-    st.stop()
-
-st.session_state.selected_file_index = sidebar_options.index(selected_option)
+# Only run this if we have options to select from
+if sidebar_options and selected_option in sidebar_options:
+    current_index = sidebar_options.index(selected_option)
+    st.session_state.selected_file_index = current_index
+else:
+    # Set a safe default if the list is empty or the selection is invalid
+    st.session_state.selected_file_index = 0
 
 # Extract details for selected option
 selected_exp_num = selected_option["exp_num"]

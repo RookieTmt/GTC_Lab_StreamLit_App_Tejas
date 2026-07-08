@@ -435,6 +435,12 @@ else:
     st.session_state.selected_file_index = 0
 
 # Extract details for selected option
+# Check if selected_option is not None and is a dictionary
+if selected_option is not None and isinstance(selected_option, dict):
+    selected_exp_num = selected_option["exp_num"]
+else:
+    # Handle the case where there is no valid selection yet
+    selected_exp_num = None # Or provide a default value
 selected_exp_num = selected_option["exp_num"]
 selected_file_name = selected_option["file_name"]
 selected_file_path = selected_option["file_path"]

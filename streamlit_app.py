@@ -516,9 +516,11 @@ st.markdown("### 📋 Experiment Details")
 if selected_exp_num is not None and selected_exp_num in EXPERIMENTS:
     exp_aim = EXPERIMENTS[selected_exp_num].get('aim', 'Aim not provided.')
     exp_theory = EXPERIMENTS[selected_exp_num].get('theory', 'Theory not provided.')
+    exp_conclusion = EXPERIMENTS[selected_exp_num].get('conclusion', 'Conclusion not provided.')
 else:
     exp_aim = "Waiting for selection..."
     exp_theory = "Waiting for selection..."
+    exp_conclusion = "Waiting for selection..."
 
 st.markdown(
     f"""
@@ -551,8 +553,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 # Render Conclusion content
-st.markdown(EXPERIMENTS[selected_exp_num]['conclusion'])
-
+st.markdown(exp_conclusion)
 st.divider()
 
 # ----------------- SECTION 2: SOURCE CODE & OUTPUT -----------------

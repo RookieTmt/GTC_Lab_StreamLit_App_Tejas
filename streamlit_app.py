@@ -462,11 +462,18 @@ with header_col2:
         unsafe_allow_html=True
     )
 
+# Determine the title safely
+if selected_exp_num is not None and selected_exp_num in EXPERIMENTS:
+    exp_title = EXPERIMENTS[selected_exp_num]['title']
+else:
+    exp_title = "Select an Experiment"
+
+# Render the HTML using the safe variable
 st.markdown(
     f"""
     <div style="border-bottom: 2px solid #1E293B; padding-bottom: 10px; margin-top: 15px; margin-bottom: 20px;">
         <h2 style="color: #F8FAFC; font-size: 1.8rem; font-weight: 600; margin: 0;">
-            Experiment {selected_exp_num}: {EXPERIMENTS[selected_exp_num]['title']}
+            Experiment {selected_exp_num if selected_exp_num is not None else '...'}: {exp_title}
         </h2>
     </div>
     """,
